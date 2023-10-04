@@ -1,0 +1,23 @@
+{
+  "name": "news-aggregator-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kuntarvishnuprasad41/news-aggregator-api.git"
+  },
+  "author": "Vishnu Prasad Kuntar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kuntarvishnuprasad41/news-aggregator-api/issues"
+  },
+  "homepage": "https://github.com/kuntarvishnuprasad41/news-aggregator-api#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
