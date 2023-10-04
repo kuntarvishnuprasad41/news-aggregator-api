@@ -10,10 +10,11 @@ class User{
   };
 
 
-  constructor(user_id, user_name = "Default name" , user_email = "something@something.com", type = User.type.other, user_preferences = [], liked_news = [], created_at)  {
+  constructor(user_id, user_name = "Default name" , user_email = "something@something.com", password, type = User.type.other, user_preferences = [], liked_news = [], created_at= " ")  {
     this.user_id = user_id
     this.user_name = user_name;
     this.user_email = user_email;
+    this.password = password;
     this.user_type = type;
     this.user_preferences = user_preferences;
     this.liked_news = liked_news;
@@ -22,15 +23,17 @@ class User{
   }
 } 
 
-function userFromJSON(obj){
-  
+function userFromJSON(obj,operation = "create"){
   if (!obj) return new User();
-
-  let { user_name, user_email, type, user_preferences, liked_news } = obj;
-  let user_id = uuidv4();
-  let created_at = timestamp("YYYYMMDDHHmmss") ;
-  
-  return new User(user_id ,user_name, user_email, type, user_preferences, liked_news, created_at);
+  if(operation == "create"){
+    let { user_name, user_email, password, type, user_preferences, liked_news } = obj;
+    let user_id = uuidv4();
+    let created_at = timestamp("YYYYMMDDHHmmss") ;
+    return new User(user_id ,user_name, user_email, password, type, user_preferences, liked_news, created_at);
+  }else{
+    let { user_id, user_name, user_email, password, type, user_preferences, liked_news, created_at } = obj;  
+    return new User(user_id ,user_name, user_email, password, type, user_preferences, liked_news, created_at);
+  }
 };
 
 module.exports  = {User, userFromJSON};

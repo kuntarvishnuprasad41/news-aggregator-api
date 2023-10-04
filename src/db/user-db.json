@@ -1,0 +1,69 @@
+{
+  "users": [
+    {
+      "user_id": 0,
+      "user_name": "Vishnu",
+      "user_email": "vishnup41@outlook.com",
+      "user_preferences": ["a", "b", "c"],
+      "liked_news": ["a", "b", "c"]
+    },
+    {
+      "user_id": "07f86885-9ee5-428f-a7bc-ebacbb11bb60",
+      "user_name": "Vishnu",
+      "user_email": "vishnup41@outlook.com",
+      "user_type": "normal",
+      "user_preferences": [],
+      "liked_news": [],
+      "created_at": "20231004153055"
+    },
+    {
+      "user_id": "4bd1daa3-9392-430b-b88d-5800b5ed6c68",
+      "user_name": "vishnup41@outlook.com",
+      "user_email": "123@Adm",
+      "password": "Vishnu",
+      "user_type": "normal",
+      "user_preferences": [],
+      "liked_news": [],
+      "created_at": "20231004153506"
+    },
+    {
+      "user_id": "d5e36c3e-ebf2-4acd-99da-2c1fc2302899",
+      "user_name": "Vishnu",
+      "user_email": "vishnup41@outlook.com",
+      "password": "123@Adm",
+      "user_type": "normal",
+      "user_preferences": [],
+      "liked_news": [],
+      "created_at": "20231004153551"
+    },
+    {
+      "user_id": "1d7830d6-71c6-48a3-8d86-effdc1ce3194",
+      "user_name": "Vishnu",
+      "user_email": "vishnup41@outlook.com",
+      "password": "123@Adm",
+      "user_type": "normal",
+      "user_preferences": [],
+      "liked_news": [],
+      "created_at": "20231004153623"
+    },
+    {
+      "user_id": "5c30102b-d3b2-4cd0-b59c-29ab51dda362",
+      "user_name": "Vishnu",
+      "user_email": "vishnup41@outlook.com",
+      "password": "123@Adm",
+      "user_type": "normal",
+      "user_preferences": [],
+      "liked_news": [],
+      "created_at": "20231004161603"
+    },
+    {
+      "user_id": "25b811e7-3010-43ca-bc3a-5f071171dab4",
+      "user_name": "Vishnu",
+      "user_email": "vishnup41@outlook.com",
+      "user_type": "normal",
+      "user_preferences": ["hi", "Hello", "hye", "bye", "1"],
+      "liked_news": [],
+      "created_at": "20231004152941"
+    }
+  ]
+}
