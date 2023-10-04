@@ -1,0 +1,11 @@
+{
+    "user":[
+        {
+            "user_id": 0,
+            "user_name":"Vishnu",
+            "user_email":"vishnup41@outlook.com",
+            "user_preferences":["a","b","c"],
+            "liked_news":["a","b","c"]
+        }
+    ]
+}
