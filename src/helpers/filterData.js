@@ -1,9 +1,12 @@
 const userData = require('../db/user-db.json');
+const newsData = require('../db/news-db.json');
 
-function filterData(user_id,type){
+function filterData(id,type){
     switch(type){
-       case 1 : return userData.users.filter((data)=> data.user_id === user_id);  
-       case 2 : return userData.users.filter((data)=> data.user_id != user_id);
+       case 1 : return userData.users.filter((data)=> data.user_id === id);  
+       case 2 : return userData.users.filter((data)=> data.user_id != id);
+       case 3 : return newsData.news.filter((data)=> data.news_id === id);
+
        default : return null
     }
     

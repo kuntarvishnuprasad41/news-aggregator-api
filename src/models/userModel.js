@@ -19,7 +19,8 @@ class User{
     this.user_preferences = user_preferences;
     this.liked_news = liked_news;
     this.created_at = created_at;
-    
+    this.read_articles = [];
+    this.favorite_news = [];
   }
 } 
 

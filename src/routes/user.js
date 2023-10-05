@@ -1,9 +1,11 @@
 const express = require('express');
 const userRoutes = require("express").Router();
 const userData = require('../db/user-db.json');
-const writeToFile = require('../helpers/fileOperations');
+const { writeToFile } = require('../helpers/fileOperations');
 const {userFromJSON} = require('../models/userModel');
 const {filterData} = require('../helpers/filterData');
+const { updateNewsPreferences } = require('../helpers/updateUser')
+
 
 userRoutes.use(express.json());;
 userRoutes.use(express.urlencoded({extended:true}));
@@ -16,8 +18,13 @@ userRoutes.get('/',(req,res)=>{
 userRoutes.post('/register',(req,res)=>{
     let addUser = userFromJSON(req.body);
     userData.users.push(addUser);
-    writeToFile(userData,"user");
-    res.status(200).send(addUser)
+    let result = writeToFile(userData,"user");
+    if(result.status){
+        res.status(200).send(addUser)
+    }else{
+        res.status(400).send({message:"Something went wrong while adding user"})
+    }
+
 });
 
 userRoutes.get('/preferences/:id',(req,res)=>{
@@ -26,21 +33,20 @@ userRoutes.get('/preferences/:id',(req,res)=>{
 });
 
 userRoutes.put('/preferences/:id',(req,res)=>{
-    let userToUpdate = filterData(req.params.id,1);
-    userToUpdate[0].user_preferences = req.body.news_preferences;
 
 
+    console.log(req.body.news_preferences);
+    let result = updateNewsPreferences(req.params.id,req.body.news_preferences)
 
-    userData.users = filterData(req.params.id,2);
-    userData.users.push(userToUpdate[0]);
+    if(result.status){
+        res.status(200).send(userData);
+    }else{
+        res.status(400).send({message:result.message});
+    }
 
-    // users.user.push(userFromJSON(userToUpdate[0]))
-    // users.user.push(userData);
-    console.log(userData);
+});
 
-    writeToFile(userData,"user");
-    res.status(200).send(userData);
-})
+
 
 userRoutes.post('/login',(req,res)=>{
 

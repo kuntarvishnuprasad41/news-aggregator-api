@@ -8,7 +8,9 @@ function writeToFile(newData,type){
         return !(err);
     });
 
-    return !(status);
+    return {
+        status : !(status)
+    };
 }
 
-module.exports = writeToFile
+module.exports = { writeToFile }
