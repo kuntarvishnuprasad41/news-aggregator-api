@@ -2,8 +2,9 @@ const express = require('express');
 const routes = require('express').Router();
 const dotenv = require('dotenv').config();
 const app = express();
-const userRoutes = require('./routes/user')
-const newsRoutes = require('./routes/news')
+const userRoutes = require('./routes/user');
+const newsRoutes = require('./routes/news');
+const { verifytoken } = require('./middlewares/authJWS');
 
 let port = process.env.PORT;
 
@@ -30,7 +31,7 @@ app.all('*', (req, res) => {
     res.status(404).send('<h1>404! Page not found</h1>'); 
   }); 
 
-  
+
 app.listen(port, (err)=>{
     if(err){
         console.log("Something went wrong");

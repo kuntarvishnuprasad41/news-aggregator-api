@@ -5,7 +5,8 @@ const { newsFromJSON } = require('../models/newsModel');
 const { writeToFile } = require('../helpers/fileOperations');
 const { readNews, markNewsFavorite } = require('../helpers/updateUser');
 const { getReadNews, getFavNews } = require('../helpers/retrievenewsFromFile');
-const newsData = require('../db/news-db.json')
+const newsData = require('../db/news-db.json');
+const verifytoken = require('../middlewares/authJWS');
 
 
 newsRoutes.use(express.json());;
@@ -34,18 +35,23 @@ newsRoutes.get('/', async (req, res) => {
     
 });
 
-newsRoutes.get('/search/:keyword', async (req, res) => {
-    let payload = {
-        page: 1,
-        q: req.params.keyword,
-        apiKey: process.env.NEWS_API_KEY
-    }
-    let url = new URLSearchParams(payload);
-    try {
-        let news = await (fetchUrl(`${URL}everything?${url}`));
-        res.status(200).send(newsFromJSON(news.articles));
-    } catch {
-        res.status(500).send("Something went wrong");
+newsRoutes.get('/search/:keyword', verifytoken, async (req, res) => {
+    if(req.user){let payload = {
+            page: 1,
+            q: req.params.keyword,
+            apiKey: process.env.NEWS_API_KEY
+        }
+        let url = new URLSearchParams(payload);
+        try {
+            let news = await (fetchUrl(`${URL}everything?${url}`));
+            res.status(200).send(newsFromJSON(news.articles));
+        } catch {
+            res.status(500).send("Something went wrong");
+        }
+    }else{
+        return res.status(403).send({
+            message: req.message
+        });
     }
 });
 
