@@ -1,5 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const timestamp = require('time-stamp');
+const bcrypt = require("bcrypt");
+const { filterData } = require('../helpers/filterData');
 
 
 class User{
@@ -10,7 +12,7 @@ class User{
   };
 
 
-  constructor(user_id, user_name = "Default name" , user_email = "something@something.com", password, type = User.type.other, user_preferences = [], liked_news = [], created_at= " ")  {
+  constructor(user_id, user_name = "Default name" , user_email = "something@something.com", password = " ", type = User.type.other, user_preferences = [], liked_news = [], created_at= " ")  {
     this.user_id = user_id
     this.user_name = user_name;
     this.user_email = user_email;
@@ -26,14 +28,17 @@ class User{
 
 function userFromJSON(obj,operation = "create"){
   if (!obj) return new User();
-  if(operation == "create"){
+
+  console.log(filterData(obj.user_email,4)[0]);
+
+  if(operation == "create" && filterData(obj.user_email,4)[0]==null ){
     let { user_name, user_email, password, type, user_preferences, liked_news } = obj;
     let user_id = uuidv4();
     let created_at = timestamp("YYYYMMDDHHmmss") ;
-    return new User(user_id ,user_name, user_email, password, type, user_preferences, liked_news, created_at);
-  }else{
-    let { user_id, user_name, user_email, password, type, user_preferences, liked_news, created_at } = obj;  
-    return new User(user_id ,user_name, user_email, password, type, user_preferences, liked_news, created_at);
+    let hashedPassword = bcrypt.hashSync(password,8);
+    return new User(user_id ,user_name, user_email, hashedPassword, type, user_preferences, liked_news, created_at);
+  }else if(filterData(obj.user_email!=null)){
+    return false;
   }
 };
 

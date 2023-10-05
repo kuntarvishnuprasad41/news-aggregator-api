@@ -30,8 +30,7 @@ function newsFromJSON(obj,operation = "create"){
     newsObj.push(new News(author, title, description, url, urlToImage, publishedAt, content));
     
   });
-  // console.log("OBJNEWS", newsObj);
-  // let result = newsObj.join(', ');
+
   return JSON.parse(JSON.stringify(newsObj)); 
 };
 

@@ -24,7 +24,13 @@ routes.use('/news',newsRoutes);
 
 app.get('/',(req,res)=>{
     res.status(200).send("Hi")
-})
+});
+
+app.all('*', (req, res) => { 
+    res.status(404).send('<h1>404! Page not found</h1>'); 
+  }); 
+
+  
 app.listen(port, (err)=>{
     if(err){
         console.log("Something went wrong");

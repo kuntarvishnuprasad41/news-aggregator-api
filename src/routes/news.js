@@ -2,7 +2,7 @@ const express = require('express');
 const newsRoutes = require('express').Router();
 const fetchUrl = require('../helpers/fetchUrl');
 const { newsFromJSON } = require('../models/newsModel');
-const writeToFile = require('../helpers/fileOperations');
+const { writeToFile } = require('../helpers/fileOperations');
 const { readNews, markNewsFavorite } = require('../helpers/updateUser');
 const { getReadNews, getFavNews } = require('../helpers/retrievenewsFromFile');
 const newsData = require('../db/news-db.json')
@@ -30,6 +30,8 @@ newsRoutes.get('/', async (req, res) => {
     } catch {
         res.status(500).send("Something went wrong");
     }
+
+    
 });
 
 newsRoutes.get('/search/:keyword', async (req, res) => {

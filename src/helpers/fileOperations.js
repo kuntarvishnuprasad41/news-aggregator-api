@@ -13,8 +13,4 @@ function writeToFile(newData,type){
     };
 }
 
-function addNews(newData){
-    
-}
-
 module.exports = { writeToFile }

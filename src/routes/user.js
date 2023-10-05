@@ -1,10 +1,9 @@
 const express = require('express');
 const userRoutes = require("express").Router();
 const userData = require('../db/user-db.json');
-const { writeToFile } = require('../helpers/fileOperations');
-const {userFromJSON} = require('../models/userModel');
 const {filterData} = require('../helpers/filterData');
 const { updateNewsPreferences } = require('../helpers/updateUser')
+const { register, login } =  require('../controllers/authController');
 
 
 userRoutes.use(express.json());;
@@ -15,17 +14,8 @@ userRoutes.get('/',(req,res)=>{
     res.status(200).json(userData);
 });
 
-userRoutes.post('/register',(req,res)=>{
-    let addUser = userFromJSON(req.body);
-    userData.users.push(addUser);
-    let result = writeToFile(userData,"user");
-    if(result.status){
-        res.status(200).send(addUser)
-    }else{
-        res.status(400).send({message:"Something went wrong while adding user"})
-    }
-
-});
+userRoutes.post('/register', register);
+userRoutes.post('/login', login);
 
 userRoutes.get('/preferences/:id',(req,res)=>{
     let user = filterData(req.params.id,1)
