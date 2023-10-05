@@ -9,7 +9,7 @@ let port = process.env.PORT;
 
 app.use(routes);
 
-routes.use("/api/user", userRoutes);
+routes.use("/api/users", userRoutes);
 routes.use("/api/news", newsRoutes);
 
 app.get("/", (req, res) => {
