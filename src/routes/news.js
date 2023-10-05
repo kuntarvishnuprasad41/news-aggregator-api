@@ -9,6 +9,7 @@ const { filterData } = require('../helpers/filterData');
 const { formToJSON } = require('axios');
 const { userFromJSON } = require('../models/userModel');
 const { readNews, markNewsFavorite} = require('../helpers/updateUser');
+const { getReadNews, getFavNews } = require('../helpers/retrievenewsFromFile');
 
 
 newsRoutes.use(express.json());;
@@ -40,7 +41,7 @@ newsRoutes.get('/',async (req,res)=>{
 });
 
 
-newsRoutes.get('/:category',async(req,res)=>{
+newsRoutes.get('/category/:category',async(req,res)=>{
     let payload = {
             page:1,
             category:req.params.category,
@@ -59,7 +60,9 @@ newsRoutes.get('/:category',async(req,res)=>{
 
 newsRoutes.get('/categories',(req,res)=>{
     res.status(200).send({categories:["business","entertainment","general","health","science","sports","technology"]})
-})
+});
+
+
 
 newsRoutes.post('/:id/read',(req,res)=>{
     let result = readNews(req.body.user_id,req.params.id)
@@ -79,6 +82,20 @@ newsRoutes.post('/:id/favorite',(req,res)=>{
     }else{
         res.status(400).send({message:result.message});
     }
+});
+
+
+newsRoutes.get('/read',(req,res)=>{
+    
+
+    let readNews = getReadNews(req.query.id);
+
+    res.status(200).send(readNews);
+});
+
+newsRoutes.get('/favorite',(req,res)=>{
+    let readNews = getFavNews(req.query.id);
+    res.status(200).send(readNews);
 });
 
 

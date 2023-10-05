@@ -1,1 +1,19 @@
-{"users":[{"user_id":"414ab615-46c7-4e04-ac88-707458f922fb","user_name":"Vishnu","user_email":"vishnup41@outlook.com","password":"123@Adm","user_type":"normal","user_preferences":["hi","Hello"],"liked_news":[],"created_at":"20231005090647","read_articles":["1c10ce95-5a89-4388-9b3d-1c043ebb2b58","5b473ef0-175d-4f9f-a189-dcee3bc6c29f"],"favorite_news":["5b473ef0-175d-4f9f-a189-dcee3bc6c29f"]}]}
+{
+  "users": [
+    {
+      "user_id": "414ab615-46c7-4e04-ac88-707458f922fb",
+      "user_name": "Vishnu",
+      "user_email": "vishnup41@outlook.com",
+      "password": "123@Adm",
+      "user_type": "normal",
+      "user_preferences": ["hi", "Hello"],
+      "liked_news": [],
+      "created_at": "20231005090647",
+      "read_articles": [
+        "1c10ce95-5a89-4388-9b3d-1c043ebb2b58",
+        "5b473ef0-175d-4f9f-a189-dcee3bc6c29f"
+      ],
+      "favorite_news": ["5b473ef0-175d-4f9f-a189-dcee3bc6c29f"]
+    }
+  ]
+}
