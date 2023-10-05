@@ -1,19 +1,25 @@
-const { v4: uuidv4 } = require('uuid');
-const timestamp = require('time-stamp');
+const { v4: uuidv4 } = require("uuid");
+const timestamp = require("time-stamp");
 const bcrypt = require("bcrypt");
-const { filterData } = require('../helpers/filterData');
+const { filterData } = require("../helpers/filterData");
 
-
-class User{
-   
+class User {
   static type = {
     admin: "admin",
-    other: "normal"
+    other: "normal",
   };
 
-
-  constructor(user_id, user_name = "Default name" , user_email = "something@something.com", password = " ", type = User.type.other, user_preferences = [], liked_news = [], created_at= " ")  {
-    this.user_id = user_id
+  constructor(
+    user_id,
+    user_name = "Default name",
+    user_email = "something@something.com",
+    password = " ",
+    type = User.type.other,
+    user_preferences = [],
+    liked_news = [],
+    created_at = " "
+  ) {
+    this.user_id = user_id;
     this.user_name = user_name;
     this.user_email = user_email;
     this.password = password;
@@ -24,22 +30,38 @@ class User{
     this.read_articles = [];
     this.favorite_news = [];
   }
-} 
+}
 
-function userFromJSON(obj,operation = "create"){
+function userFromJSON(obj, operation = "create") {
   if (!obj) return new User();
 
-  console.log(filterData(obj.user_email,4)[0]);
+  console.log(filterData(obj.user_email, 4)[0]);
 
-  if(operation == "create" && filterData(obj.user_email,4)[0]==null ){
-    let { user_name, user_email, password, type, user_preferences, liked_news } = obj;
+  if (operation == "create" && filterData(obj.user_email, 4)[0] == null) {
+    let {
+      user_name,
+      user_email,
+      password,
+      type,
+      user_preferences,
+      liked_news,
+    } = obj;
     let user_id = uuidv4();
-    let created_at = timestamp("YYYYMMDDHHmmss") ;
-    let hashedPassword = bcrypt.hashSync(password,8);
-    return new User(user_id ,user_name, user_email, hashedPassword, type, user_preferences, liked_news, created_at);
-  }else if(filterData(obj.user_email!=null)){
+    let created_at = timestamp("YYYYMMDDHHmmss");
+    let hashedPassword = bcrypt.hashSync(password, 8);
+    return new User(
+      user_id,
+      user_name,
+      user_email,
+      hashedPassword,
+      type,
+      user_preferences,
+      liked_news,
+      created_at
+    );
+  } else if (filterData(obj.user_email != null)) {
     return false;
   }
-};
+}
 
-module.exports  = {User, userFromJSON};
+module.exports = { User, userFromJSON };
