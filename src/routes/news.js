@@ -2,23 +2,34 @@ const express = require("express");
 const newsRoutes = require("express").Router();
 const fetchUrl = require("../helpers/fetchUrl");
 const { newsFromJSON } = require("../models/newsModel");
-const { writeToFile } = require("../helpers/fileOperations");
 const { readNews, markNewsFavorite } = require("../helpers/updateUser");
 const { getReadNews, getFavNews } = require("../helpers/retrievenewsFromFile");
 const newsData = require("../db/news-db.json");
 
 newsRoutes.use(express.json());
 newsRoutes.use(express.urlencoded({ extended: true }));
-
-
 const URL = "https://newsapi.org/v2/";
 
-newsRoutes.get("/", (req,res)=>{
+
+/**
+ * Get all news, No need to login 
+ * Method : Get
+ * Endpoint : /api/news/open
+ */
+newsRoutes.get("/open", (req,res)=>{
   res.status(200).send(newsData)
 });
 
 
+/**
+ * 
+ */
 
+/**
+ * Search a news
+ * method: GET
+ * Endpoint :/api/news/search/keyword to search
+ */
 newsRoutes.get("/search/:keyword", async (req, res) => {
     let payload = {
       page: 1,
@@ -34,6 +45,11 @@ newsRoutes.get("/search/:keyword", async (req, res) => {
     }
 });
 
+/**
+ * list all news by category
+ * method: GET
+ * Endpoint :/api/news/search/keyword to search
+ */
 newsRoutes.get("/category/:category", async (req, res) => {
   let payload = {
     page: 1,
@@ -50,6 +66,11 @@ newsRoutes.get("/category/:category", async (req, res) => {
   }
 });
 
+/**
+ * List of all categories available
+ * method: GET
+ * Endpoint :/api/news/categories
+ */
 newsRoutes.get("/categories", (req, res) => {
   res
     .status(200)
@@ -66,17 +87,31 @@ newsRoutes.get("/categories", (req, res) => {
     });
 });
 
+
+/**
+ * Get read news by userid
+ * pass query params userID
+ */
 newsRoutes.get("/read", (req, res) => {
   let readNews = getReadNews(req.query.id);
   console.log(readNews[0]);
   res.status(200).send(readNews);
 });
 
+/**
+ * Get favorite news by userid
+ * pass query params userID
+ */
 newsRoutes.get("/favorite", (req, res) => {
   let readNews = getFavNews(req.query.id);
   res.status(200).send(readNews);
 });
 
+/**
+ * Mark news as read
+ * pass userId in request body
+ * pass newsId in request param
+ */
 newsRoutes.post("/:id/read", (req, res) => {
   let result = readNews(req.body.user_id, req.params.id);
   console.log(result.status);
@@ -87,6 +122,12 @@ newsRoutes.post("/:id/read", (req, res) => {
   }
 });
 
+
+/**
+ * Mark news as favorite
+ * pass userId in request body
+ * pass newsId in request param
+ */
 newsRoutes.post("/:id/favorite", (req, res) => {
   let result = markNewsFavorite(req.body.user_id, req.params.id);
   console.log(result.status);

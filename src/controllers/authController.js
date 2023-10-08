@@ -1,11 +1,20 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const userData = require("../db/user-db.json");
-const { writeToFile } = require("../helpers/fileOperations");
 
+const { writeToFile } = require("../helpers/fileOperations");
 const { userFromJSON } = require("../models/userModel");
 const { filterData } = require("../helpers/filterData");
 
+
+/**
+ * To Register/Signup the user
+ * Endpoint : /api/user/register
+ * 
+ * @param { userData from user/front-end } req 
+ * @param { status: !status, message : "User added successfully "} res 
+ * @returns status: !status, message : "User added successfully "
+ */
 let register = (req, res) => {
   let addUser = userFromJSON(req.body);
   if (addUser.status) {
@@ -22,6 +31,16 @@ let register = (req, res) => {
     return res.status(500).send(addUser.message);
   }
 };
+
+
+/**
+ * To login 
+ * Endpoint /api/user/login
+ * 
+ * @param {userMail, password} req 
+ * @param { if(true){jwt}else{error related}  } res 
+ * @returns 
+ */
 
 let login = (req, res) => {
   let userMail = req.body.user_email;

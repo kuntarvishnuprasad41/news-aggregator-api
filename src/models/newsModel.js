@@ -1,11 +1,24 @@
 const { v4: uuidv4 } = require("uuid");
 const timestamp = require("time-stamp");
 
+/**
+ * Data model for news
+ */
 class News {
   static type = {
     admin: "admin",
     other: "normal",
   };
+
+   categories = [
+    "business",
+    "entertainment",
+    "general",
+    "health",
+    "science",
+    "sports",
+    "technology",
+  ]
 
   constructor(
     author,
@@ -27,7 +40,12 @@ class News {
   }
 }
 
-function newsFromJSON(obj, operation = "create") {
+/**
+ * to convert newsAPI object to newsDb object
+ * @param {from newsAPI} obj 
+ * @returns [news]
+ */
+function newsFromJSON(obj, category = "create") {
   if (!obj) return new News();
   let newsObj = [];
   obj.forEach((element) => {

@@ -1,5 +1,10 @@
 const axios = require("axios");
 
+/**
+ * Global fn to fetch news 
+ * @param {url to fetch news from} url 
+ * @returns either {resolve or reject}
+ */
 function fetchUrl(url) {
   return new Promise((resolve, reject) => {
     axios

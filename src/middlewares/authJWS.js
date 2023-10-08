@@ -1,6 +1,13 @@
 const jwt = require("jsonwebtoken");
 const { filterData } = require("../helpers/filterData");
 
+/**
+ * To verify the header
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ * @returns 
+ */
 const verifyToken = (req, res, next) => {
   if (req.headers && req.headers.authorization) {
     jwt.verify(

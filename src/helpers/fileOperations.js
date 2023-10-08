@@ -1,8 +1,14 @@
 const fs = require("fs");
 const path = require("path");
 
+/**
+ * fn to write data to file
+ * @param { Data to write to file } newData 
+ * @param {news or user} type 
+ * @returns status: !status, message : `${type} added successfully `
+ */
 function writeToFile(newData, type) {
-  let writePath = path.join(__dirname, "../db", `/${type}-db.json`);
+  let writePath = path.join(__dirname, "../db", `${type}-db.json`);
   let status = fs.writeFile(
     writePath,
     JSON.stringify(newData),
@@ -18,7 +24,7 @@ function writeToFile(newData, type) {
 
   return {
     status: !status,
-    message : "User added successfully  "
+    message : `${type} added successfully `
   };
 }
 

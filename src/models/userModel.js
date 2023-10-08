@@ -3,6 +3,9 @@ const timestamp = require("time-stamp");
 const bcrypt = require("bcrypt");
 const { filterData } = require("../helpers/filterData");
 
+/**
+ * User Model
+ */
 class User {
   static type = {
     admin: "admin",
@@ -32,6 +35,12 @@ class User {
   }
 }
 
+/**
+ * Checks the user Request and converts it, with errors wherever needed 
+ * @param {user request} obj 
+ * @param {*} operation 
+ * @returns 
+ */
 function userFromJSON(obj, operation = "create") {
   if (!obj) return{
     status : false,

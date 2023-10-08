@@ -1,6 +1,12 @@
 const userData = require("../db/user-db.json");
 const newsData = require("../db/news-db.json");
 
+/**
+ * To filter data as required
+ * @param {newsId | userId} id 
+ * @param {1,2,3,4} type 
+ * @returns arrayOf(data)
+ */
 function filterData(id, type) {
   switch (type) {
     case 1:

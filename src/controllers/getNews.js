@@ -1,14 +1,17 @@
-const express = require("express");
-const newsRoutes = require("express").Router();
 const fetchUrl = require("../helpers/fetchUrl");
 const { newsFromJSON } = require("../models/newsModel");
 const { writeToFile } = require("../helpers/fileOperations");
-const { readNews, markNewsFavorite } = require("../helpers/updateUser");
-const { getReadNews, getFavNews } = require("../helpers/retrievenewsFromFile");
-const newsData = require("../db/news-db.json");
 const URL = "https://newsapi.org/v2/";
 
-const fetchNews = async (req, res) => {
+
+/**
+ * To fetch the news globally, here used for cron-job to keep news refreshing every 14 minutes,
+ * which is ~(24*60)/100
+ * 100 is number of requests available for free by newsapi.org
+ *
+ * it just writes to file
+ */
+const fetchNews = async (_, __) => {
     console.log("Fetching ...");
     let payload = {
       page: 1,

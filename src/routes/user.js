@@ -8,18 +8,50 @@ const { register, login } = require("../controllers/authController");
 userRoutes.use(express.json());
 userRoutes.use(express.urlencoded({ extended: true }));
 
-userRoutes.get("/", (req, res) => {
-  res.status(200).json(userData);
-});
 
+/**
+ * Lists all users
+ * For testing purpose
+ * Deprected
+ */
+// userRoutes.get("/", (req, res) => {
+//   res.status(200).json(userData);
+// });
+
+/**
+ * To register user
+ * request body : {
+    "user_name":"Vu",
+    "user_email":"@outlook.com",
+    "password" : "password"
+}
+ */
 userRoutes.post("/register", register);
+
+/**
+ * To login and get jwt
+ * Body : {
+    "user_email":"vishnup41@outlook.com",
+    "password" : "123@Adm"
+}
+ */
 userRoutes.post("/login", login);
 
+
+/**
+ * Get all the preferences by userId
+ * 
+ */
 userRoutes.get("/preferences/:id", (req, res) => {
   let user = filterData(req.params.id, 1);
   res.status(200).send(user[0].user_preferences);
 });
 
+
+/**
+ * Add user preference
+ * body :  "news_preferences":"news_Preference"
+ */
 userRoutes.put("/preferences/:id", (req, res) => {
   console.log(req.body.news_preferences);
   let result = updateNewsPreferences(req.params.id, req.body.news_preferences);
@@ -31,6 +63,5 @@ userRoutes.put("/preferences/:id", (req, res) => {
   }
 });
 
-userRoutes.post("/login", (req, res) => {});
 
 module.exports = userRoutes;
