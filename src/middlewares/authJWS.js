@@ -19,21 +19,13 @@ const verifyToken = (req, res, next) => {
           req.message = "Header verification failed";
           next();
         } else {
-          let user = filterData(req.body.user_email, 4);
-          if (user != null) {
-            req.user = user;
             req.message = "Found Successfully";
             next();
-          } else {
-            req.user = undefined;
-            req.message = "Some error while finding the user";
-            next();
-          }
-        }
+          } 
       }
     );
   } else if ( req.path == '/') return next(); else{
-    res.status(500).send({message:req.message})
+    res.status(500).send({message:"Auth header not passed"})
   }
 };
 
