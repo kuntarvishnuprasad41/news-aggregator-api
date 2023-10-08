@@ -59,6 +59,7 @@ function readNews(userId, newsId) {
  */
 function markNewsFavorite(userId, newsId) {
   let userToUpdate = filterData(userId, 1);
+  console.log(userToUpdate)
   if (userToUpdate.length == 0) {
     return {
       message: "user not found",

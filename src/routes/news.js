@@ -29,8 +29,8 @@ newsRoutes.get("/", (req,res)=>{
  * News by preferences
  */
 
-newsRoutes.get('/:userId',(req,res)=>{
-  let userpref = getUserPrefs(req.params.userId)
+newsRoutes.get('/',(req,res)=>{
+  let userpref = getUserPrefs(req.query.userId)
   if(userpref.status){
     res.status(200).send(userpref.message);
   }else{
@@ -62,7 +62,7 @@ newsRoutes.get("/search/:keyword", async (req, res) => {
 /**
  * list all news by category
  * method: GET
- * Endpoint :/api/news/search/keyword to search
+ * Endpoint :/api/news/category/categoryName
  */
 newsRoutes.get("/category/:category", async (req, res) => {
   let payload = {
@@ -85,7 +85,7 @@ newsRoutes.get("/category/:category", async (req, res) => {
  * method: GET
  * Endpoint :/api/news/categories
  */
-newsRoutes.get("/categories", (req, res) => {
+newsRoutes.get("/cat", (req, res) => {
   let categoryList = categories();
   if(categoryList.length < 1 ){
     res.status(404).send({message:"Server has no categories"})
@@ -143,7 +143,7 @@ newsRoutes.post("/:id/read", (req, res) => {
  * pass newsId in request param
  */
 newsRoutes.post("/:id/favorite", (req, res) => {
-  let result = markNewsFavorite(req.body.user_id, req.params.id);
+  let result = markNewsFavorite(req.params.id, req.body.user_id);
   console.log(result.status);
   if (result.status) {
     res.status(200).send({ message: "user updated successfully" });
