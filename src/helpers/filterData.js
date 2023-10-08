@@ -17,6 +17,9 @@ function filterData(id, type) {
       return newsData.news.filter((data) => data.news_id == id);
     case 4:
       return userData.users.filter((data) => data.user_email == id);
+    case 5:  
+      // console.log(newsData.news.filter((data) => data.categories == id),"data")    
+      return newsData.news.filter((data) => data.categories == id);  
     default:
       return null;
   }

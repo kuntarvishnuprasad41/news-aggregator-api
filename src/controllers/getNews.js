@@ -1,5 +1,5 @@
 const fetchUrl = require("../helpers/fetchUrl");
-const { newsFromJSON } = require("../models/newsModel");
+const { newsFromJSON,categories } = require("../models/newsModel");
 const { writeToFile } = require("../helpers/fileOperations");
 const URL = "https://newsapi.org/v2/";
 
@@ -10,20 +10,24 @@ const URL = "https://newsapi.org/v2/";
  * 100 is number of requests available for free by newsapi.org
  *
  * it just writes to file
- */
-const fetchNews = async (_, __) => {
-    console.log("Fetching ...");
+//  */
+let categoriesList = categories()
+
+async function fetchNews(){
+  for await (const category of categoriesList) {
     let payload = {
       page: 1,
       pageSize : 50,
-      q: "india",
+      q: category,
       apiKey: process.env.NEWS_API_KEY,
     };
+
+    console.log(payload);
     let url = new URLSearchParams(payload);
     console.log(`${URL}everything?${url}`);
     try {
       let news = await fetchUrl(`${URL}everything?${url}`);
-      let addNews = newsFromJSON(news.articles);
+      let addNews = newsFromJSON(news.articles,category);
       let allNews = new Object();
       allNews.news = addNews;
       writeToFile(allNews, "news");
@@ -32,5 +36,6 @@ const fetchNews = async (_, __) => {
      console.log("something wrong");
     }
   }
+}
 
 module.exports = fetchNews

@@ -1,10 +1,11 @@
 const express = require("express");
 const newsRoutes = require("express").Router();
 const fetchUrl = require("../helpers/fetchUrl");
-const { newsFromJSON } = require("../models/newsModel");
+const { newsFromJSON, categories } = require("../models/newsModel");
 const { readNews, markNewsFavorite } = require("../helpers/updateUser");
-const { getReadNews, getFavNews } = require("../helpers/retrievenewsFromFile");
+const { getReadNews, getFavNews , getUserPrefs} = require("../helpers/retrievenewsFromFile");
 const newsData = require("../db/news-db.json");
+const { filterData } = require("../helpers/filterData");
 
 newsRoutes.use(express.json());
 newsRoutes.use(express.urlencoded({ extended: true }));
@@ -14,16 +15,30 @@ const URL = "https://newsapi.org/v2/";
 /**
  * Get all news, No need to login 
  * Method : Get
- * Endpoint : /api/news/open
+ * Endpoint : /api/news/
  */
-newsRoutes.get("/open", (req,res)=>{
-  res.status(200).send(newsData)
+newsRoutes.get("/", (req,res)=>{
+  if(!newsData){
+    res.status(200).send(newsData)
+  }  else{
+    res.status(404).send({message: "No news found"})
+  }
 });
 
 
 /**
- * 
+ * News by preferences
  */
+
+newsRoutes.get('/:userId',(req,res)=>{
+  let userpref = getUserPrefs(req.params.userId)
+  if(userpref.status){
+    res.status(200).send(userpref.message);
+  }else{
+    res.status(404).send({message:userpref.message})
+  }
+
+})
 
 /**
  * Search a news
@@ -72,19 +87,12 @@ newsRoutes.get("/category/:category", async (req, res) => {
  * Endpoint :/api/news/categories
  */
 newsRoutes.get("/categories", (req, res) => {
-  res
-    .status(200)
-    .send({
-      categories: [
-        "business",
-        "entertainment",
-        "general",
-        "health",
-        "science",
-        "sports",
-        "technology",
-      ],
-    });
+  let categoryList = categories();
+  if(categoryList.length < 1 ){
+    res.status(404).send({message:"Server has no categories"})
+  }else{
+    res.status(200).send(categoryList);
+  }
 });
 
 
@@ -94,8 +102,11 @@ newsRoutes.get("/categories", (req, res) => {
  */
 newsRoutes.get("/read", (req, res) => {
   let readNews = getReadNews(req.query.id);
-  console.log(readNews[0]);
-  res.status(200).send(readNews);
+  if(readNews.status){
+    res.status(200).send(readNews.message);
+  }else{
+    res.status(404).send(readNews.message)
+  }
 });
 
 /**
@@ -103,8 +114,12 @@ newsRoutes.get("/read", (req, res) => {
  * pass query params userID
  */
 newsRoutes.get("/favorite", (req, res) => {
-  let readNews = getFavNews(req.query.id);
-  res.status(200).send(readNews);
+  let favNews = getFavNews(req.query.id);
+  if(favNews.status){
+    res.status(200).send(favNews.message);
+  }else{
+    res.status(404).send(favNews.message);
+  }
 });
 
 /**
@@ -137,5 +152,7 @@ newsRoutes.post("/:id/favorite", (req, res) => {
     res.status(400).send({ message: result.message });
   }
 });
+
+
 
 module.exports = newsRoutes;
