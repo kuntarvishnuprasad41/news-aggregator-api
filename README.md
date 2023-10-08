@@ -3,10 +3,11 @@
 This API is used to fetch news, perform CRUD on newsDb and have some authentication with users 
 This project also fetches news by category from NewsAPI every 14 mins
 
-Please create the .env file with following keys
-PORT = 8080
-NEWS_API_KEY = xxxxxxxxxxxxxxxxxxxxxxxxxx
-API_SECRET = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+Please create the .env file with following keys <br/>
+PORT = 8080 <br/>
+NEWS_API_KEY = xxxxxxxxxxxxxxxxxxxxxxxxxx <br/>
+API_SECRET = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx" <br/>
+
 
 
 The project has 2 DBs 
@@ -143,5 +144,16 @@ ENDPOINT : ``` /api/news/category/categoryName ```
 ```
   Endpoint : 
 ``` /api/news/:newsId/favorite ```
+
+
+# FilterData types
+
+| Key | Operations |
+| --- | --- |
+| 1 | Get user by id |
+| 2 | All users except id |
+| 3 | News by id |
+| 4 | User by email |
+| 5 | News by category |
 
 
