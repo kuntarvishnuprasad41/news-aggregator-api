@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const { filterData } = require("../helpers/filterData");
 
 /**
  * To verify the header
