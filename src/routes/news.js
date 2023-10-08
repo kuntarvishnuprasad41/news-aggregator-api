@@ -71,8 +71,6 @@ newsRoutes.get("/category/:category", async (req, res) => {
     apiKey: process.env.NEWS_API_KEY,
   };
   let url = new URLSearchParams(payload);
-  console.log(url);
-  console.log(`URL ${URL}top-headlines?${url}`);
   try {
     res.status(200).send(await fetchUrl(`${URL}top-headlines?${url}`));
   } catch (err) {
@@ -128,7 +126,6 @@ newsRoutes.get("/favorite", (req, res) => {
  */
 newsRoutes.post("/:id/read", (req, res) => {
   let result = readNews(req.body.user_id, req.params.id);
-  console.log(result.status);
   if (result.status) {
     res.status(200).send({ message: "user updated successfully" });
   } else {
@@ -144,7 +141,6 @@ newsRoutes.post("/:id/read", (req, res) => {
  */
 newsRoutes.post("/:id/favorite", (req, res) => {
   let result = markNewsFavorite(req.params.id, req.body.user_id);
-  console.log(result.status);
   if (result.status) {
     res.status(200).send({ message: "user updated successfully" });
   } else {

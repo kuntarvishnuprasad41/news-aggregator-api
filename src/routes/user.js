@@ -53,7 +53,6 @@ userRoutes.get("/preferences/:id", (req, res) => {
  * body :  "news_preferences":"news_Preference"
  */
 userRoutes.put("/preferences/:id", (req, res) => {
-  console.log(req.body.news_preferences);
   let result = updateNewsPreferences(req.params.id, req.body.news_preferences);
 
   if (result.status) {

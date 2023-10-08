@@ -1,5 +1,5 @@
 const cron = require('node-cron');
-const fetchNews = require('../controllers/getNews');
+const getNews = require('../controllers/getNews');
 
 
 /**
@@ -7,7 +7,7 @@ const fetchNews = require('../controllers/getNews');
  */
 const cronjob = cron.schedule('*/14 * * * *', () => {
     console.log("Fetching news from NewsAPI");
-    fetchNews();
+    getNews();
 });
 
 module.exports = cronjob;

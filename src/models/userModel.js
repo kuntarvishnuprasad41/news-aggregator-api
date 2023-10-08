@@ -48,7 +48,6 @@ function userFromJSON(obj, operation = "create") {
     user : new User()
   };
   else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(obj.user_email)){
-    console.log('inside')
     return{
       status :false,
       message : "Enter valid email"

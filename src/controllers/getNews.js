@@ -13,7 +13,7 @@ const URL = "https://newsapi.org/v2/";
 //  */
 let categoriesList = categories()
 
-async function fetchNews(){
+async function getNews(){
   for await (const category of categoriesList) {
     let payload = {
       page: 1,
@@ -22,9 +22,8 @@ async function fetchNews(){
       apiKey: process.env.NEWS_API_KEY,
     };
 
-    console.log(payload);
+
     let url = new URLSearchParams(payload);
-    console.log(`${URL}everything?${url}`);
     try {
       let news = await fetchUrl(`${URL}everything?${url}`);
       let addNews = newsFromJSON(news.articles,category);
@@ -38,4 +37,4 @@ async function fetchNews(){
   }
 }
 
-module.exports = fetchNews
+module.exports = getNews

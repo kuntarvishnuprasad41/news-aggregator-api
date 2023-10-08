@@ -24,7 +24,6 @@ function getReadNews(userId) {
   } else {
     let readNews = [];
     user[0].read_articles.forEach((element) => {
-      console.log("ele", filterData(element, 3)[0]);
       readNews.push(filterData(element, 3)[0]);
     });
 
@@ -92,7 +91,6 @@ function getFavNews(userId) {
   } else {
     let favNews = [];
     user[0].favorite_news.forEach((element) => {
-      console.log("ele", element);
       favNews.push(filterData(element, 3)[0]);
     });
 
