@@ -46,7 +46,6 @@ function getUserPrefs(userId) {
   let user = filterData(userId, 1);
   let newsByPref = [];
   user[0].user_preferences.forEach((element) => {
-    // console.log("ele", filterData(element, 5)[0]);
     newsByPref.push(filterData(element, 5));
   });
 
