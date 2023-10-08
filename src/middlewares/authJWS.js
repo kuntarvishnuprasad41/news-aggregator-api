@@ -25,11 +25,8 @@ const verifyToken = (req, res, next) => {
         }
       }
     );
-  } else {
-    console.log("err");
-    req.user = undefined;
-    req.message = "Authorization header not found";
-    next();
+  } else if ( req.path == '/') return next(); else{
+    res.status(500).send({message:req.message})
   }
 };
 

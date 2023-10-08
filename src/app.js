@@ -3,14 +3,20 @@ const routes = require("express").Router();
 const dotenv = require("dotenv").config();
 const app = express();
 const userRoutes = require("./routes/user");
+const verifytoken = require("./middlewares/authJWS");
 const newsRoutes = require("./routes/news");
+const cronjob = require('./cronjobs/fetchNews')
+
 
 let port = process.env.PORT;
 
 app.use(routes);
 
+
+
 routes.use("/api/users", userRoutes);
-routes.use("/api/news", newsRoutes);
+routes.use("/api/news", verifytoken, newsRoutes);
+
 
 app.get("/", (req, res) => {
   res.status(200).send("Hi");

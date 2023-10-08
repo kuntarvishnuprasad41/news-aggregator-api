@@ -33,9 +33,11 @@ class User {
 }
 
 function userFromJSON(obj, operation = "create") {
-  if (!obj) return new User();
-
-  console.log(filterData(obj.user_email, 4)[0]);
+  if (!obj) return{
+    status : false,
+    message: "We do not accept empty object",
+    user : new User()
+  };
 
   if (operation == "create" && filterData(obj.user_email, 4)[0] == null) {
     let {
@@ -49,19 +51,28 @@ function userFromJSON(obj, operation = "create") {
     let user_id = uuidv4();
     let created_at = timestamp("YYYYMMDDHHmmss");
     let hashedPassword = bcrypt.hashSync(password, 8);
-    return new User(
-      user_id,
-      user_name,
-      user_email,
-      hashedPassword,
-      type,
-      user_preferences,
-      liked_news,
-      created_at
-    );
-  } else if (filterData(obj.user_email != null)) {
-    return false;
+    return {
+      status :true,
+      message : "User added successfully",
+      user: new User(
+        user_id,
+        user_name,
+        user_email,
+        hashedPassword,
+        type,
+        user_preferences,
+        liked_news,
+        created_at
+      )
+  };
+  } else if(filterData(obj.user_email,4) != null) {
+    return{
+      status : false,
+      message: "User already exists",
+      user : new User()
+    };
   }
 }
+
 
 module.exports = { User, userFromJSON };

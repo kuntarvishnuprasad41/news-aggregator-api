@@ -8,18 +8,18 @@ const { filterData } = require("../helpers/filterData");
 
 let register = (req, res) => {
   let addUser = userFromJSON(req.body);
-  if (addUser) {
-    userData.users.push(addUser);
+  if (addUser.status) {
+    userData.users.push(addUser.user);
     let result = writeToFile(userData, "user");
     if (result.status) {
       return res.status(200).send(addUser);
     } else {
       return res
         .status(400)
-        .send({ message: "Something went wrong while adding user" });
+        .send(result.message);
     }
   } else {
-    return res.status(500).send("User already exists");
+    return res.status(500).send(addUser.message);
   }
 };
 

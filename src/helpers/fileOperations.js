@@ -8,12 +8,17 @@ function writeToFile(newData, type) {
     JSON.stringify(newData),
     { encoding: "utf-8", flag: "w" },
     (err, data) => {
-      return !err;
+      return {
+        status: !err,
+        message : "Something went wrong "
+      };
     }
   );
 
+
   return {
     status: !status,
+    message : "User added successfully  "
   };
 }
 
