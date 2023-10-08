@@ -1,5 +1,3 @@
-const newsData = require("../db/news-db.json");
-const userData = require("../db/user-db.json");
 const { filterData } = require("../helpers/filterData");
 
 /**

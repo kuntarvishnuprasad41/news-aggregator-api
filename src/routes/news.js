@@ -5,7 +5,6 @@ const { newsFromJSON, categories } = require("../models/newsModel");
 const { readNews, markNewsFavorite } = require("../helpers/updateUser");
 const { getReadNews, getFavNews , getUserPrefs} = require("../helpers/retrievenewsFromFile");
 const newsData = require("../db/news-db.json");
-const { filterData } = require("../helpers/filterData");
 
 newsRoutes.use(express.json());
 newsRoutes.use(express.urlencoded({ extended: true }));
@@ -18,7 +17,7 @@ const URL = "https://newsapi.org/v2/";
  * Endpoint : /api/news/
  */
 newsRoutes.get("/", (req,res)=>{
-  if(!newsData){
+  if(!newsData.news.length == 0){
     res.status(200).send(newsData)
   }  else{
     res.status(404).send({message: "No news found"})

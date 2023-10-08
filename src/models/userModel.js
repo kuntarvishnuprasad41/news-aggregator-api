@@ -47,8 +47,15 @@ function userFromJSON(obj, operation = "create") {
     message: "We do not accept empty object",
     user : new User()
   };
+  else if(!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(obj.user_email)){
+    console.log('inside')
+    return{
+      status :false,
+      message : "Enter valid email"
+    };
+  }
 
-  if (operation == "create" && filterData(obj.user_email, 4)[0] == null) {
+  else if (operation == "create" && filterData(obj.user_email, 4)[0] == null) {
     let {
       user_name,
       user_email,

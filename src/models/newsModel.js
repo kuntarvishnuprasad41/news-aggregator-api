@@ -1,5 +1,4 @@
 const { v4: uuidv4 } = require("uuid");
-const timestamp = require("time-stamp");
 
 /**
  * Data model for news

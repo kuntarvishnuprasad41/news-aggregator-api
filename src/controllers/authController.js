@@ -25,10 +25,10 @@ let register = (req, res) => {
     } else {
       return res
         .status(400)
-        .send(result.message);
+        .send({message:result.message});
     }
   } else {
-    return res.status(500).send(addUser.message);
+    return res.status(500).send({message:addUser.message});
   }
 };
 
